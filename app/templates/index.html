@@ -1,24 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>SwiftNav APM Support Page</title>
+{% extends "layout.html" %}
+{% block content %}
 
-		<link rel="stylesheet/less" 
-		type="text/css" 
-		href="{{ url_for('static', filename='css/main.css') }}" />
+<h3>ArduPilot Log Submission & Analysis</h3>
+
+<p>
+Submit your <a href="http://copter.ardupilot.com/wiki/downloading-and-analyzing-data-logs-in-mission-planner/">Dataflash logs</a> to us for Piksi performance analysis. 
+</p>
+
+<form id="upload_log_form" action="{{ url_for('upload_log') }}" method=post enctype=multipart/form-data>
+<p><input type=file name=file>
+   <input type=submit value=Upload id="upload_button">
+<img id="loader_img" src="/static/img/ajax-loader.gif"/>
+</p>
+</form>
+
+<p>
+If you're flying Piksi, we can really use your log files, completely anonymously, to help measure and improve Piksi's performance on UAVs! This uploader script <b> will do an initial analysis, immediately available to you</b> to give you insight into your Piksi's behavior. It will also give you a permament link to the uploaded logfile that you can use in your correspondence with developers.
+</p>
+
+<p>Thank you! </br>  - Niels & The Swift-Nav Team</p>
+
+<p></p>
+
+<script 
+type="text/javascript" 
+src="{{ url_for('static', filename='js/index.js') }}"></script>
 
 
-</head>
-<body>
-
-<div id="container">
-
-	<div id="index_container">
-		<h1>Swift Navigation ArduPilot Support Page</h1>
-
-		<p>Submit your logs here</p>
-
-	</div>
-</div>
-</body>
-</html>
+{% endblock %}

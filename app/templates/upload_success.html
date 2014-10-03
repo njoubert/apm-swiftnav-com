@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h3>ArduPilot Log Upload Success!</h3>
+
+<p>  </p>
+<table border=1 style="border: 2px solid white; border-spacing:" cellpadding=4 cellspacing=0>
+<tr><td><b>Message Type</b></td><td><b>Count</b></td></tr>
+{% for key, value in counts.iteritems() %}
+<tr><td>{{ key.upper() }}</td><td>{{ value }}</td></tr>
+{% endfor %}
+</table>
+
+<p></p>
+
+{% endblock %}

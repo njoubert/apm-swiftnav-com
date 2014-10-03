@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script>
+var logUUID = "{{logUUID}}";
+</script>
+
+<h3>Log Analysis</h3>
+
+<p><a href="{{ url_for('analyze_log',logUUID=logUUID) }}">Permalink to this analysis</a></p>
+
+<div id="bar_loader"><img src="/static/img/bar-loader.gif"/></div>
+
+<div id="notice"></div>
+
+
+<script 
+type="text/javascript" 
+src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+
+{% endblock %}
