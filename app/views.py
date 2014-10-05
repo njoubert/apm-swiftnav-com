@@ -1,10 +1,12 @@
 import os
-from app import app
-from flask import Flask, jsonify, request, url_for, redirect, render_template
-from werkzeug import secure_filename
 import time
-
 import math
+
+from app import app
+from flask import Flask, jsonify, request, url_for, redirect, render_template, abort
+from werkzeug import secure_filename
+
+import analysis
 
 import pymavlink.DFReader as DFReader
 
@@ -54,6 +56,23 @@ def upload_log():
     file = request.files['file']
     if file and allowed_file(file.filename):
       logUUID = genUUID("BIN")
+      email = ""
+      comments = ""
+      if 'email' in request.form and len(request.form['email']) < 60:
+        email = request.form['email']
+        
+      if 'comments' in request.form and len(request.form['comments']) < 8192:
+        comments = request.form['comments']
+      
+      print email
+      print comments
+      if len(email) > 0 or len(comments) > 0:
+        with open(logUUIDToFile(logUUID + ".txt"), 'w') as f:
+          f.write(email)
+          f.write("\n============\n")
+          f.write(comments)
+          print 'written'
+
       filename = logUUIDToFile(logUUID)
       file.save(filename)
       valid, counts = validate_log(filename)
@@ -75,6 +94,7 @@ def analyze_log(logUUID=None):
     abort(404);
   return render_template('analysis.html', logUUID=logUUID)
 
+#Array of structs
 @app.route('/apm/log_json/<logUUID>')
 def log_json(logUUID=None):
   if logUUID is None:
@@ -83,32 +103,69 @@ def log_json(logUUID=None):
   if not os.path.isfile(filename):
     abort(404);
 
+
+  def message_to_dict(m):
+    d = m._d.copy()
+    d['fmt'] = m.fmt.name
+    return d
+
   log = DFReader.DFReader_binary(filename, 0)
+  grabThese = set(['SBPH', 'SBPB', 'SBPL', 'GPS', 'GPS2', ])
+  messages = []
   while True:
     m = log.recv_msg()
     if m is None:
-      break  
+      break
+    if m.get_type() in grabThese:
+      messages.append(message_to_dict(m))
 
   return jsonify({
     'counts': log.counts,
-    'params': log.params
+    'params': log.params,
+    'messages': messages,
   })
 
-from flask import send_from_directory
+#Struct of Arrays
+@app.route('/apm/log_jsonSoA/<logUUID>')
+def log_jsonSoA(logUUID=None):
+  start = time.time()*1000
+  if logUUID is None:
+    return jsonify([])
+  filename = logUUIDToFile(logUUID)
+  if not os.path.isfile(filename):
+    abort(404);
 
-# Here is a way to download files we have on the server.
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'],
-                               filename)
 
+  def message_to_dict(m):
+    d = m._d.copy()
+    d['fmt'] = m.fmt.name
+    return d
 
-@app.after_request
-def add_header(response):
-  """
-  Add headers to both force latest IE rendering engine or Chrome Frame,
-  and also to cache the rendered page for 10 minutes.
-  """
-  response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
-  response.headers['Cache-Control'] = 'public, max-age=0'
-  return response
+  def message_get_keys(m):
+    return m._d.keys()
+
+  def append_message(d, m):
+    for k, v in m._d.iteritems():
+      d[k].append(v)
+
+  log = DFReader.DFReader_binary(filename, 0)
+  grabThese = set(['SBPH', 'SBPB', 'SBPL', 'GPS', 'GPS2', ])
+  messages = dict.fromkeys(grabThese, None)
+  while True:
+    m = log.recv_msg()
+    if m is None:
+      break
+    if m.get_type() in grabThese:
+      if messages[m.get_type()] is None:
+        messages[m.get_type()] = {}
+        for k in message_get_keys(m):  
+          messages[m.get_type()][k] = []
+      append_message(messages[m.get_type()], m)
+
+  print "dur (ms):", time.time()*1000 - start
+  return jsonify({
+    'counts': log.counts,
+    'params': log.params,
+    'messages': messages,
+  })
+

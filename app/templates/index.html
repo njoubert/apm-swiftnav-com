@@ -7,16 +7,35 @@
 Submit your <a href="http://copter.ardupilot.com/wiki/downloading-and-analyzing-data-logs-in-mission-planner/">Dataflash logs</a> to us for Piksi performance analysis. 
 </p>
 
-<form id="upload_log_form" action="{{ url_for('upload_log') }}" method=post enctype=multipart/form-data>
-<p><input type=file name=file>
-   <input type=submit value=Upload id="upload_button">
-<img id="loader_img" src="/static/img/ajax-loader.gif"/>
-</p>
-</form>
-
 <p>
-If you're flying Piksi, we can really use your log files, completely anonymously, to help measure and improve Piksi's performance on UAVs! This uploader script <b> will do an initial analysis, immediately available to you</b> to give you insight into your Piksi's behavior. It will also give you a permament link to the uploaded logfile that you can use in your correspondence with developers.
+If you're flying Piksi, we can use your log files, completely anonymously, to measure and improve Piksi's performance on UAVs! This uploader script <b> will do an initial analysis, immediately available to you</b> to give you insight into your Piksi's behavior. Once uploaded, you will have a permament link to this logfile and analysis.
 </p>
+
+<div id="upload_form_container">
+	
+	<form id="upload_log_form" action="{{ url_for('upload_log') }}" method=post enctype=multipart/form-data>
+
+	<p>
+		Your .bin dataflash log<br/>
+		<input type=file name=file>
+	</p>
+
+	<p>
+		Your email (<i>completely optional!</i>)<br/>
+		<input type="text" name="email" size=30/>
+	</p>
+	<P>
+		Comments on the flight (<i>optional</i>)<br/>
+		<textarea id="form_comments" name="comments" rows=6 cols=48> </textarea>
+	</P>
+
+	<p>
+		<input type="submit" value="Submit and Upload" id="upload_button">
+		<img id="loader_img" src="/static/img/ajax-loader.gif"/>
+	</p>
+	</form>
+
+</div>
 
 <p>Thank you! </br>  - Niels & The Swift-Nav Team</p>
 

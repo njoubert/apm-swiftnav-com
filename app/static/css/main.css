@@ -34,6 +34,12 @@ form {
 	padding: 1pt 0;
 }
 
+#upload_form_container {
+	margin: 0px 60px;
+	padding: 0px 20px;
+	border-left: 1px solid white;
+}
+
 /* Centering images */
 #logo_img {
 	display: table-cell;

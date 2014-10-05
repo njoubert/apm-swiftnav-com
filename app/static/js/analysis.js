@@ -34,7 +34,7 @@ var Analysis = (function() {
 
 
 $(document).ready(function() {
-    $.ajax('/apm/log_json/' + logUUID).then(function(data, status, xhr) {
+    $.ajax('/apm/log_jsonSoA/' + logUUID).then(function(data, status, xhr) {
             $("#bar_loader").hide();
 
             if (!Analysis.validate(data)) {
