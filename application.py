@@ -12,12 +12,12 @@ app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 from flask import Flask
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 
-# set a 'SECRET_KEY' to enable the Flask session cookies
-app.config['SECRET_KEY'] = 'nielssecret'
+# # set a 'SECRET_KEY' to enable the Flask session cookies
+# app.config['SECRET_KEY'] = 'nielssecret'
 
-toolbar = DebugToolbarExtension(app)
+# toolbar = DebugToolbarExtension(app)
 
 @app.after_request
 def add_header(response):

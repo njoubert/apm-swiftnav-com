@@ -18,10 +18,13 @@ a {
 	color: #58C3ED;
 	font-weight: 400;
 	text-decoration: none;
+	transition: .25s;
+
 }
 
 a:hover {
 	color: #33A6D4;
+	transition: .25s;
 }
 
 #header {

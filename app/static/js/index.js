@@ -26,7 +26,7 @@ $(document).ready(function() {
         
         if (validate_form($(this).serializeArray())) {
             $("#loader_img").show();
-            $("#upload_button").hide();
+            $("#upload-button").hide();
         } else {
             e.preventDefault();
         }
