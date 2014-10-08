@@ -1,34 +1,89 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,200italic,300italic,400italic,600italic,700italic|Anaheim);
+
 * {
-	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
 }
 
 html, body {
 
-	background: rgb(0,183,248);
-	color: rgb(251,251,251);
-	font-family: 'Lato', sans-serif;
+	background-color: white;
+	color: #233945;
+	font-family: 'Anaheim', sans-serif;
 	font-weight: 300;
-	letter-spacing: 0pt;
+
 }
 
 a {
-	color: rgb(251,251,251);
+	color: #58C3ED;
+	font-weight: 400;
+	text-decoration: none;
 }
 
-#container {
-	width: 900px;
-	margin: auto;
+a:hover {
+	color: #33A6D4;
 }
 
 #header {
-	margin: 30pt 0;
-	display: table;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 1.5em 0em;
+	width: 100%;
+
+	background-color: #58C3ED;
+}
+
+img#logo {
+	width: 156px;
+	height: 100px;
 }
 
 #content {
-	border: 1px solid rgb(0, 212, 255);
-	padding: 20px;
-	font-size: 10pt;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 auto;
+	padding: 2em;
+
+	letter-spacing: 0.02em;
+	line-height: 1.5em;
+	width: 60%;
+}
+
+#content h1 {
+	margin: 0em auto 0.8em auto;
+
+	font-size: 2em;
+	font-weight: 400;
+	letter-spacing: 0em;
+	text-transform: none;
+}
+
+#content h1 a {
+	color: #233945;
+}
+
+#content h1 a:hover {
+	color: #233945;
+}
+
+#content h3 {
+	color: #CE4D28;
+	font-size: 1em;
+	font-weight: bold;
+	letter-spacing: 0em;
+	text-transform: uppercase;
+}
+
+#content h6 {
+
+}
+
+#content p {
+	margin-bottom: 0.8em;
 }
 
 form {
@@ -36,62 +91,41 @@ form {
 }
 
 #upload_form_container {
-	margin: 0px 60px;
-	padding: 0px 20px;
+	margin: 1em 4em;
+	padding: 0.8em 1.2em;
+
 	border-left: 1px solid white;
 }
 
-/* Centering images */
-#logo_img {
-	display: table-cell;
-	margin-right: 26pt;
-	vertical-align: middle;
-}
-.pagetitle {
-	vertical-align: middle;
-	display: table-cell;
+#upload_form_container label {
+
+	font-size: 0.8em;
+	font-weight: 400;
 }
 
-/* HEADINGS*/
+#upload_form_container input {
+	padding: 0.4em 0.5em;
+	width: 30em;
 
-h1 {
-	font-size: 42pt;
-	font-weight: 900;
-	text-transform: uppercase;
-	display: inline;
-	letter-spacing: 1px;
-	padding-right: 6px;
-}
-
-h2 {
-	font-size: 42pt;
-	font-weight: 100;
-	text-transform: uppercase;
-	display: inline;
-	letter-spacing: 0px;
-}
-
-h3 {
-	margin: 10pt 0;	
-	letter-spacing: 1px;
-	word-spacing: 4px;
-	font-weight: 500;
-	font-size: 18pt;
+	font-family: 'Source Sans Pro', sans-serif;
+	letter-spacing: 0.05em;
 
 }
 
-h4 {
-	text-transform: uppercase;
-	font-weight: 300;
+#upload_form_container textarea {
+	padding: 0.5em 0.4em;
+	width: 30.6em;
+	height: 6em;
 
+	font-family: 'Source Sans Pro', sans-serif;
+	letter-spacing: 0.05em;
 }
 
-p {
-	line-height: 125%;
-}
+#upload-button {
+	padding: 0.4em 0.5em;
 
-b {
-	letter-spacing: 1px;
+	font-family: 'Source Sans Pro', sans-serif;
+	letter-spacing: 0.05em;
 }
 
 /* */
