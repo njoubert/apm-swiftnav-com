@@ -1,6 +1,7 @@
 import os
 import time
 import math
+import urllib
 
 from app import app
 from flask import Flask, jsonify, request, url_for, redirect, render_template, abort
@@ -63,15 +64,12 @@ def upload_log():
         
       if 'comments' in request.form and len(request.form['comments']) < 8192:
         comments = request.form['comments']
-      
-      print email
-      print comments
+
       if len(email) > 0 or len(comments) > 0:
         with open(logUUIDToFile(logUUID + ".txt"), 'w') as f:
           f.write(email)
           f.write("\n============\n")
           f.write(comments)
-          print 'written'
 
       filename = logUUIDToFile(logUUID)
       file.save(filename)
@@ -103,7 +101,6 @@ def log_json(logUUID=None):
   if not os.path.isfile(filename):
     abort(404);
 
-
   def message_to_dict(m):
     d = m._d.copy()
     d['fmt'] = m.fmt.name
@@ -134,7 +131,6 @@ def log_jsonSoA(logUUID=None):
   filename = logUUIDToFile(logUUID)
   if not os.path.isfile(filename):
     abort(404);
-
 
   def message_to_dict(m):
     d = m._d.copy()
